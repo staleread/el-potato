@@ -1,5 +1,5 @@
 import { Storage } from '../dal/storage';
-import { ChefService } from '../services/chef-service';
+import { ChefService } from '../services/chef.service';
 import { Chef, ChefAddDto } from './api.types';
 
 // ideally that should be a bunch of async api calls to server
