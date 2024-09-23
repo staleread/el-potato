@@ -35,7 +35,6 @@ export function OrderPane() {
       .onStatusTriggered={handleOrderStatusTriggered}
     />
     <SelectChefFormModal
-      :bind={selectChefKey}
       .order={activeOrder}
       .chefs={chefs}
       .isOpen={isModalOpen}
@@ -49,7 +48,6 @@ export function OrderPane() {
     orders,
     chefs,
     activeOrder,
-    selectChefKey: activeOrder ? 1 : 0,
     isModalOpen: activeOrder !== null,
     closeModal: () => setActiveOrder(null),
     handleOrderAdded: (dto: OrderAddDto) => {
