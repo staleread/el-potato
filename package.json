@@ -2,19 +2,29 @@
   "name": "simple-booklib",
   "version": "1.0.0",
   "author": "staleread",
+  "private": true,
   "description": "Library managment system",
   "scripts": {
-    "build": "npx tsc",
-    "dev": "npx vite",
-    "check": "npx @biomejs/biome check src/",
+    "dev": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "lint": "npx tsc --noEmit && npx @biomejs/biome check src/",
     "fix": "npx @biomejs/biome check --write src/"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
-    "tsc": "^2.0.4",
-    "vite": "^5.4.5"
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.2",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0",
+    "webpack-merge": "^6.0.1"
   },
   "dependencies": {
-    "@staleread/tempo": "^3.0.0"
+    "@popperjs/core": "^2.11.8",
+    "@staleread/tempo": "^3.0.0",
+    "bootstrap": "^5.3.3"
   }
 }
