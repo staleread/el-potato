@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { tempo } from '@staleread/tempo';
 import { HomePage } from './pages/HomePage';
 
