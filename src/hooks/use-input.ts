@@ -1,12 +1,13 @@
-import tempo from '@staleread/tempo';
+import { tempo } from '@staleread/tempo';
 
 export type InputInfo = {
   value: string;
   isDirty: boolean;
   error: string | null;
   onInput: (e: Event) => void;
+  onChange: (e: Event) => void;
   onBlur: () => void;
-}
+};
 
 export function useInput(
   initialValue: string,
@@ -25,6 +26,9 @@ export function useInput(
   const onInput = (e: Event) =>
     setValue((e.target as HTMLInputElement).value);
 
+  const onChange = (e: Event) =>
+    setValue((e.target as HTMLInputElement).value);
+
   const onBlur = () => setIsDirty(true);
 
   return {
@@ -32,6 +36,7 @@ export function useInput(
     isDirty,
     error,
     onInput,
+    onChange,
     onBlur,
   };
 }

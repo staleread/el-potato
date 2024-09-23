@@ -1,6 +1,6 @@
-import tempo from '@staleread/tempo';
+import { tempo } from '@staleread/tempo';
+import { OrderAddDto } from '../api/api.types';
 import { InputInfo, useInput } from '../hooks/use-input';
-import { OrderAddDto } from '../dto.types';
 import { validateText, validateYear } from '../validation/validation-rules';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
@@ -18,13 +18,16 @@ type AddOrderFormProps = {
 
 export function AddOrderForm(props: AddOrderFormProps) {
   const title = useInput('', (input: string) =>
-    validateText(input, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH));
+    validateText(input, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH),
+  );
 
   const client = useInput('', (input: string) =>
-    validateText(input, MIN_NAME_LENGTH, MAX_NAME_LENGTH));
+    validateText(input, MIN_NAME_LENGTH, MAX_NAME_LENGTH),
+  );
 
   const yearOfBirth = useInput('', (input: string) =>
-    validateYear(input, MIN_YEAR_OF_BIRTH, MAX_YEAR_OF_BIRTH));
+    validateYear(input, MIN_YEAR_OF_BIRTH, MAX_YEAR_OF_BIRTH),
+  );
 
   const imports = [Input, Button];
 
@@ -33,9 +36,9 @@ export function AddOrderForm(props: AddOrderFormProps) {
     <div class="card-body">
       <h4 class="card-title mb-3">Зробити замовлення</h4>
       <form @submit={handleSubmit}>
-        <Input 
-          .id="book-title" 
-          .type="text" 
+        <Input
+          .id="book-title"
+          .type="text"
           .label="Назва страви"
           .placeholder="e.g. Піца карбонара"
           *={title}
@@ -59,7 +62,7 @@ export function AddOrderForm(props: AddOrderFormProps) {
           .style="success"
           .disabled={cannotSubmit}
         >
-          Додати Книгу
+          Додати Замовлення
         </Button>
       </form>
     </div>
@@ -69,8 +72,9 @@ export function AddOrderForm(props: AddOrderFormProps) {
     title,
     client,
     yearOfBirth,
-    cannotSubmit: [title, client, yearOfBirth]
-      .some((info: InputInfo) => !info.isDirty || info.error),
+    cannotSubmit: [title, client, yearOfBirth].some(
+      (info: InputInfo) => !info.isDirty || info.error,
+    ),
     handleSubmit: (e: Event) => {
       e.preventDefault();
 

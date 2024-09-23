@@ -2,7 +2,6 @@
   "name": "simple-booklib",
   "version": "1.0.0",
   "author": "staleread",
-  "license": "MIT",
   "description": "Library managment system",
   "scripts": {
     "build": "npx tsc",
@@ -11,8 +10,11 @@
     "fix": "npx @biomejs/biome check --write src/"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.0",
+    "@biomejs/biome": "^1.8.3",
     "tsc": "^2.0.4",
     "vite": "^5.4.5"
+  },
+  "dependencies": {
+    "@staleread/tempo": "^3.0.0"
   }
 }

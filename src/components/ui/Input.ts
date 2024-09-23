@@ -1,8 +1,9 @@
 type InputProps = {
   id: string;
   type: string;
-  placeholder: string;
-  label: string;
+  placeholder?: string;
+  label?: string;
+  isReadonly?: boolean;
   value: string;
   isDirty: boolean;
   error: string | null;
@@ -13,19 +14,18 @@ type InputProps = {
 export function Input(props: InputProps) {
   const template = `
   <div class="form-group mb-3">
-    <label for="{props.id}" $if :yes {props.label}>
-      {props.label}
-    </label>
-    <input 
+    <label :if={props.label} for="{props.id}">{props.label}</label>
+    <input
       type="{props.type}"
       class="form-control {inputClass}"
       id="{props.id}"
       value="{props.value}"
       placeholder="{props.placeholder}"
+      disabled={props.isReadonly}
       @input={props.onInput}
       @blur={props.onBlur}
     />
-    <span class="help-block text-danger" $if :yes {shouldShowError}>
+    <span :if={shouldShowError} class="help-block text-danger">
       {props.error}
     </span>
   </div>`;
@@ -33,8 +33,8 @@ export function Input(props: InputProps) {
   const attach = {
     props,
     inputClass: props.isDirty
-      ? props.error 
-        ? 'is-invalid' 
+      ? props.error
+        ? 'is-invalid'
         : 'is-valid'
       : '',
     shouldShowError: props.isDirty && props.error,

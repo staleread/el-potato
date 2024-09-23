@@ -1,7 +1,10 @@
-import tempo from '@staleread/tempo';
+import { tempo } from '@staleread/tempo';
+import { ChefAddDto } from '../api/api.types';
 import { InputInfo, useInput } from '../hooks/use-input';
-import { ChefAddDto } from '../dto.types';
-import { validateText, validateEmail } from '../validation/validation-rules';
+import {
+  validateEmail,
+  validateText,
+} from '../validation/validation-rules';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 
@@ -14,7 +17,8 @@ type AddChefFormProps = {
 
 export function AddChefForm(props: AddChefFormProps) {
   const name = useInput('', (input: string) =>
-    validateText(input, MIN_NAME_LENGTH, MAX_NAME_LENGTH));
+    validateText(input, MIN_NAME_LENGTH, MAX_NAME_LENGTH),
+  );
 
   const email = useInput('', (input: string) => validateEmail(input));
 
@@ -25,9 +29,9 @@ export function AddChefForm(props: AddChefFormProps) {
     <div class="card-body">
       <h4 class="card-title mb-3">Додати шефа</h4>
       <form @submit={handleSubmit}>
-        <Input 
-          .id="chef-name" 
-          .type="text" 
+        <Input
+          .id="chef-name"
+          .type="text"
           .label="Як звати шефа?"
           .placeholder="Введіть ім'я"
           *={name}
@@ -53,8 +57,9 @@ export function AddChefForm(props: AddChefFormProps) {
   const attach = {
     name,
     email,
-    cannotSubmit: [name, email]
-      .some((info: InputInfo) => !info.isDirty || info.error),
+    cannotSubmit: [name, email].some(
+      (info: InputInfo) => !info.isDirty || info.error,
+    ),
     handleSubmit: (e: Event) => {
       e.preventDefault();
 
@@ -68,4 +73,3 @@ export function AddChefForm(props: AddChefFormProps) {
 
   return { imports, template, attach };
 }
-
