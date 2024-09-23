@@ -14,21 +14,12 @@ export class Storage<T extends Entity> {
     this.data = this.loadData();
   }
 
-  private loadData(): StorageData<T> {
-    const storedData = localStorage.getItem(this.storageKey);
-    return storedData ? JSON.parse(storedData) : { nextId: 1, items: [] };
-  }
-
-  private saveData(): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+  public get(id: number): T | undefined {
+    return this.data.items.find((item) => item.id === id);
   }
 
   public getAll(): T[] {
     return this.data.items;
-  }
-
-  public get(id: number): T | undefined {
-    return this.data.items.find((item) => item.id === id);
   }
 
   public add(item: T): void {
@@ -40,12 +31,12 @@ export class Storage<T extends Entity> {
     this.data.items.push(item);
   }
 
-  public getNextId(): number {
-    return this.data.nextId++;
-  }
-
   public saveChanges(): void {
     this.saveData();
+  }
+
+  public getNextId(): number {
+    return this.data.nextId++;
   }
 
   public remove(id: number): void {
@@ -54,5 +45,14 @@ export class Storage<T extends Entity> {
       this.data.items.splice(index, 1);
       this.saveChanges();
     }
+  }
+
+  private loadData(): StorageData<T> {
+    const storedData = localStorage.getItem(this.storageKey);
+    return storedData ? JSON.parse(storedData) : { nextId: 1, items: [] };
+  }
+
+  private saveData(): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(this.data));
   }
 }

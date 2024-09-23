@@ -1,5 +1,5 @@
 import { Storage } from '../dal/storage';
-import { OrderService } from '../services/order-service';
+import { OrderService } from '../services/order.service';
 import {
   Order,
   OrderAddDto,
