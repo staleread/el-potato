@@ -2,6 +2,7 @@ import { tempo } from '@staleread/tempo';
 import { Chef, Order } from '../api/api.types';
 import { useInput } from '../hooks/use-input';
 import { validateIntId } from '../validation/validation-rules';
+import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { Modal } from './ui/Modal';
 import { Select } from './ui/Select';
@@ -17,7 +18,7 @@ type SelectChefFormModalProps = {
 export function SelectChefFormModal(props: SelectChefFormModalProps) {
   const chef = useInput('', (input: string) => validateIntId(input));
 
-  const imports = [Modal, Input, Select];
+  const imports = [Modal, Input, Button, Select];
 
   const template = `
   <Modal .isOpen={props.isOpen} .close={props.closeModal}>
@@ -44,17 +45,21 @@ export function SelectChefFormModal(props: SelectChefFormModalProps) {
       </div>
 
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          @click={props.closeModal}
+        <Button
+          .type="button"
+          .style="secondary"
+          .onClick={props.closeModal}
         >
           Скасувати
-        </button>
+        </Button>
 
-        <button type="submit" class="btn btn-primary">
+        <Button
+          .type="submit"
+          .style="primary"
+          .disabled={cannotSubmit}
+        >
           Відправити
-        </button>
+        </Button>
       </div>
     </form>
   </Modal>`;
@@ -62,6 +67,7 @@ export function SelectChefFormModal(props: SelectChefFormModalProps) {
   const attach = {
     props,
     chef,
+    cannotSubmit: !chef.isDirty || chef.error,
     chefOptions: props.chefs.map((chef: Chef) => ({
       value: chef.id.toString(),
       displayValue: chef.name,
