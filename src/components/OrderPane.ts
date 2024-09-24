@@ -74,10 +74,7 @@ export function OrderPane() {
 
       setCooking({ id: activeOrder.id, chefId });
 
-      const updatedOrder = getOrder(activeOrder.id);
-      orders.splice(orders.indexOf(activeOrder), 1, updatedOrder);
-
-      setOrders([...orders]);
+      setOrders([...getNotReadyOrders()]);
       setActiveOrder(null);
     },
   };
