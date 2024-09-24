@@ -15,8 +15,8 @@ const buttonStyles: Record<OrderStatus, ButtonStyle> = {
 };
 
 const buttonTexts: Record<OrderStatus, string> = {
-  pending: 'Нове',
-  cooking: 'Готується',
+  pending: 'Готувати',
+  cooking: 'Видати',
   ready: 'Готово',
 };
 
