@@ -15,8 +15,8 @@ const buttonStyles: Record<OrderStatus, ButtonStyle> = {
 };
 
 const buttonTexts: Record<OrderStatus, string> = {
-  pending: 'Нове',
-  cooking: 'Готується',
+  pending: 'Готувати',
+  cooking: 'Видати',
   ready: 'Готово',
 };
 
@@ -24,8 +24,8 @@ export function OrderItem({ order, onStatusTriggered }: OrderItemProps) {
   const imports = [Button];
 
   const template = `
-  <div class="d-flex justify-content-between py-1">
-    <p class="fs-6">{order.title}</p>
+  <div class="d-flex justify-content-between align-items-center py-1">
+    <p class="m-0">{order.title}</p>
     <Button .style="{buttonStyle}" .onClick={handleClick}>
       {buttonText}
     </Button>

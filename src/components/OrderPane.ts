@@ -19,7 +19,6 @@ export function OrderPane() {
   const [chefs, setChefs] = tempo.useState<Chef[]>([]);
   const [activeOrder, setActiveOrder] = tempo.useState<Order | null>(null);
 
-  tempo.useEffect(() => setChefs([...getAllChefs()]));
   tempo.useEffect(() => setOrders([...getNotReadyOrders()]), []);
 
   const imports = [AddOrderForm, OrderList, Modal, SelectChefFormModal];
@@ -35,6 +34,7 @@ export function OrderPane() {
       .onStatusTriggered={handleOrderStatusTriggered}
     />
     <SelectChefFormModal
+      :bind={activeOrderKey}
       .order={activeOrder}
       .chefs={chefs}
       .isOpen={isModalOpen}
@@ -48,6 +48,7 @@ export function OrderPane() {
     orders,
     chefs,
     activeOrder,
+    activeOrderKey: activeOrder ? activeOrder.id : -1,
     isModalOpen: activeOrder !== null,
     closeModal: () => setActiveOrder(null),
     handleOrderAdded: (dto: OrderAddDto) => {
@@ -60,6 +61,7 @@ export function OrderPane() {
     handleOrderStatusTriggered: (order: Order) => {
       if (order.status === 'pending') {
         setActiveOrder({ ...order });
+        setChefs([...getAllChefs()]);
         return;
       }
       orders.splice(orders.indexOf(order), 1);
@@ -72,10 +74,7 @@ export function OrderPane() {
 
       setCooking({ id: activeOrder.id, chefId });
 
-      const updatedOrder = getOrder(activeOrder.id);
-      orders.splice(orders.indexOf(activeOrder), 1, updatedOrder);
-
-      setOrders([...orders]);
+      setOrders([...getNotReadyOrders()]);
       setActiveOrder(null);
     },
   };
