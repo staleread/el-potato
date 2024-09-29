@@ -40,7 +40,7 @@ export function AddOrderForm(props: AddOrderFormProps) {
           .id="book-title"
           .type="text"
           .label="Назва страви"
-          .placeholder="e.g. Піца карбонара"
+          .placeholder="e.g. /"Піца карбонара/""
           *={title}
         />
         <Input
